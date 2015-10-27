@@ -1,0 +1,10 @@
+<?php
+$name = $element->getName();
+$form_group_class = isset($errors[$name]) ? 'has-error' : '';
+$type = $element->getAttribute('type');
+echo $this->partial('form/render/'.$type, array(
+    'name' => $name,
+    'form_group_class' => $form_group_class,
+    'element' => $element,
+    'form' => $form
+));

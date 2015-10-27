@@ -1,0 +1,25 @@
+{
+  "name" : "zendframework/starseed",
+  "description" : "Zend Framwork 2 Blank Project",
+  "version" : "1.0.0",
+  "require" : {
+    "php" : ">=5.4",
+    "zendframework/zendframework" : "*",
+    "doctrine/orm" : "*",
+    "doctrine/doctrine-orm-module" : "*",
+    "blanchonvincent/zf2-lazy-loading-module" : "dev-master",
+    "neilime/zf2-assets-bundle" : "dev-master",
+    "neilime/zf2-mobile-detect": "dev-master",
+    "beberlei/DoctrineExtensions" : "dev-master"
+  },
+  "keywords" : [ "framework", "zf2" ],
+  "autoload" : {
+    "psr-0" : {
+      "Entity\\" : "doctrine",
+      "Repository\\" : "doctrine",
+      "ST\\" : "vendor"
+    }
+  },
+  "license" : "BSD-3-Clause",
+  "homepage" : "http://framework.zend.com/"
+}

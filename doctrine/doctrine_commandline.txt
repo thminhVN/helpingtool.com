@@ -1,0 +1,14 @@
+generate repository
+php vendor/doctrine/doctrine-module/bin/doctrine-module.php orm:generate-repositories .\doctrine
+
+generate entity
+cd c:\wamp\www\blank_project_2.2.9
+php vendor/doctrine/doctrine-module/bin/doctrine-module.php orm:convert-mapping --namespace="Entity\\" --from-database annotation .\doctrine --force
+php vendor/doctrine/doctrine-module/bin/doctrine-module.php orm:generate-entities .\doctrine --generate-annotations=true
+
+--generate entity with filter
+php vendor/doctrine/doctrine-module/bin/doctrine-module.php orm:convert-mapping --namespace="Entity\\" --from-database annotation .\doctrine --force --filter="Class"
+php vendor/doctrine/doctrine-module/bin/doctrine-module.php orm:generate-entities .\doctrine --generate-annotations=true --filter="Class"
+
+generate repository
+php vendor/doctrine/doctrine-module/bin/doctrine-module.php orm:generate-repositories .\doctrine

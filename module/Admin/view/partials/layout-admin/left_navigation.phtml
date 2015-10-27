@@ -1,0 +1,16 @@
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <?php
+         //echo $this->navigation('admin_navigation')->menu()->escapeLabels(false)->setPartial('partials/layout-admin/menu')
+        //echo $this->navigation('admin_navigation')->menu()->escapeLabels(false)->setUlClass('nav in');;
+        echo 
+        $this->stnavigation('Zend\Navigation\Admin')
+        ->stmenu()->setUlClass('nav in')
+        ->setUlId('side-menu')
+        ->escapeLabels(false)
+        ->setAcl($this->getHelperPluginManager()->getServiceLocator()->get('StAcl'))
+        ->setRole($this->identity()->getRole());
+         ?>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>

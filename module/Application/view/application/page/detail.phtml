@@ -1,0 +1,14 @@
+<?php echo $this->partial('partials/layout/seo', array(
+    'titles' => array(
+        $page['title'],
+        'Trang'
+    ),
+    'description' => $page['seo_description'],
+    'image' => $page['image'],
+    'date_created' => $page[0]->getDatetimeCreated(),
+    'date_updated' => $page[0]->getDatetimeUpdated()
+))?>
+<div class="container">
+    <h1><?php echo $page['title']?></h1>
+    <div><?php echo $page['description']?></div>
+</div>

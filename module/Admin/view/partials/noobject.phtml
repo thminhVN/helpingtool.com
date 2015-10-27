@@ -1,0 +1,6 @@
+<div class="row">
+    <div class="col-xs-12">
+        <h3 class="callout callout-danger text-danger">Can not found this <?php echo ucfirst($this->routeInfo()->controller)?></h3>
+        <a class="btn btn-lg btn-info" href="<?php echo $this->url('admin/default',array('controller' => $this->routeInfo()->controller, 'action' => 'add'));?>">Add new <?php echo $this->routeInfo()->controller?></a>
+    </div>
+</div>

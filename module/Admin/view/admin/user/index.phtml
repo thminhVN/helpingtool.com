@@ -1,0 +1,47 @@
+<div class="row">
+	<div class="col-sm-6">
+		<a 
+		  class="btn btn-primary btn-sm" 
+		  href="<?php echo $this->url('admin/default',array(
+		      'controller' => $this->routeInfo()->controller,
+		      'action' => 'add'))?>">
+		      <span class="glyphicon glyphicon-plus"></span> ADD NEW
+		      </a>
+        <?php if($this->identity()->getRole() == 'admin'):?>
+		<a class="btn btn-danger btn-sm" id="multi-delete" data-controller="<?php echo $this->routeInfo()->controller?>">
+		  <span class="glyphicon glyphicon-minus"></span> REMOVE
+		</a>
+		<?php endif;?>
+	</div>			
+</div>
+<div class="row" style="margin-top: 10px">
+    <div class="col-xs-12">
+    <?php
+        echo $this->partial('partials/filter',array('items' => $filter));
+    ?>
+        <table class="display dataTable" id="<?php echo $this->routeInfo()->controller?>">
+    		<thead>
+    			<tr>						
+    				<th data-fnrender="renderFirstColumn" data-mdata="check">
+    				    <input type="checkbox" id="select-all" class="selectall">
+				    </th>						
+    				<th data-mdata="id">ID</th>
+    				<th data-mdata="name">Name</th>
+    				<th data-mdata="email">Email</th>
+    				<?php if($this->identity()->getRole() == 'admin'):?>
+    				<th data-mdata="role" data-fnrender="renderRole" data-swidth="12%">Role</th>
+    				<th data-mdata="status" data-fnrender="renderStatus" data-swidth="12%">Status</th>	
+    				<th data-fnrender="renderSetting" data-no-sort="true" data-swidth="12%">Setting</th>
+    				<?php else:?>
+    				<th data-mdata="role">Role</th>
+    				<?php endif;?>
+    			</tr>				
+    		</thead>
+    		<tbody>
+    			<tr>
+    				<td colspan="7" class="dataTables_empty">Loading data from server</td>
+    			</tr>
+    		</tbody>
+    	</table>
+    </div>
+</div>

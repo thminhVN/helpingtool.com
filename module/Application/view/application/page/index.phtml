@@ -1,0 +1,20 @@
+<div class="container">
+    <ul>
+    <?php 
+        foreach ($paginator as $item){
+            echo "<li>" . $item['title'] . "</li>";
+        }
+    ?>
+    </ul>
+    <div id="pagination" class="text-center">
+    <?php 
+    	echo $this->paginationControl($paginator, 'Sliding', array(
+            'partials/layout/pagination',
+             'Application'
+            ), array(
+            'route' => $this->lang()."_application/page-list", 
+            'params' => $params)
+        ); 
+    ?>
+    </div>
+</div>

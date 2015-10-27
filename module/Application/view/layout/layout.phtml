@@ -1,0 +1,26 @@
+<?php echo $this->doctype()?>
+<html lang="<?php echo $this->lang; ?>">
+<head>
+    <?php
+    //Loading all meta tag, title, css and script require add in head tag
+    echo $this->partial('partials/layout/header')
+    ?>
+</head>
+<body class="<?php echo $this->lang . " ". $this->class; //print language in body class to config font in CSS easier?>">
+
+<?php
+    //Loading all script in body like: facebook, google tag manager and some advertisement channel
+    echo $this->partial('partials/layout/script-in-body');
+    //Loading menu on top, login form
+    echo $this->partial('partials/layout/top');
+    echo $this->layout()->content; //Loading content from action
+?>
+
+<?php
+    //Loading footer
+    echo $this->partial('partials/layout/footer');
+    //Loading all script files
+    echo $this->partial('partials/layout/script');
+?>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<?php 
+    echo $this->form()->openTag($form);
+    $errors = $form->getMessages();
+    foreach ($form as $element) {
+        if(empty($element->getAttribute('data-lang'))) {
+            echo $this->partial('form/render_element', array(
+                'element' =>$element,
+                'form' => $form
+            ));
+        }
+    }
+?>
+<?php if($form->getAttribute('data-type') == 'multilanguage'): //RENDER LANGUAGE FIELD?>
+<div class="row mg-bottom-md">
+    <div class="col-md-6 col-md-offset-3">
+      <p class="bg-danger pd-all-nm"><b>MULTI LANGUAGE FIELDS</b></p>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <?php foreach ($langs as $lang):?>
+            <li role="presentation" 
+                class="<?php echo $lang->getStatus() == \Application\Config\Config::STATUS_DEFAULT ? 'active' : ''  ?>">
+                <a href="<?php echo "#".$lang->getCode()?>" 
+                    aria-controls="<?php echo $lang->getCode()?>" role="tab" data-toggle="tab"><?php echo $lang->getName()?></a>
+            </li>
+        <?php endforeach;?>
+      </ul>
+  </div>
+</div>
+<!-- Tab panes -->
+<div class="tab-content">
+<?php foreach ($langs as $lang):?>
+    <div role="tabpanel" 
+        class="tab-pane fade <?php echo $lang->getStatus() == \Application\Config\Config::STATUS_DEFAULT ? 'in active' : ''  ?>" 
+        id="<?php echo $lang->getCode()?>">
+    <?php 
+        foreach ($form as $element) {
+            if($element->getAttribute('data-lang') == $lang->getCode()){
+                echo $this->partial('form/render_element', array(
+                    'element' =>$element,
+                    'form' => $form
+                ));
+            }
+        }
+    ?>
+    </div>
+<?php endforeach;?>
+</div>
+    
+<?php endif;?>
+<p class="text-center">
+	<button type="submit" class="btn btn-success btn-small">
+		<i class="glyphicon glyphicon-arrow-up"></i> SUBMIT
+	</button>
+	<button type="reset" class="btn btn-danger btn-small">
+		<i class="glyphicon glyphicon-remove"></i> RESET
+	</button>
+</p>
+<?php echo $this->form()->closeTag() ?>

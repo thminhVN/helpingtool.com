@@ -1,0 +1,68 @@
+$blue: #3bbfce;
+$margin: 16px;
+
+.content-navigation {
+    border-color: $blue;
+    color: darken($blue, 9%);
+}
+
+.border {
+    padding: $margin / 2;
+    margin: $margin / 2;
+    border-color: $blue;
+}
+nav{
+	ul{
+		padding: 0;
+		margin: 0;
+		li{
+			float: left;
+			padding: $margin;
+			color: $blue;
+	       a{
+	           display: inline-block;
+	           background-color: $blue;
+	           padding: 30px;
+	       }
+		}
+	}
+}
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+.box { @include border-radius(10px); }
+.message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+	padding: 10px;
+}
+
+.success {
+  @extend .message;
+  border-color: green;
+}
+
+.error {
+  @extend .message;
+  border-color: red;
+}
+
+.warning {
+  @extend .message;
+  border-color: yellow;
+}
+
+.danger {
+  @extend .message;
+  border-color: red;
+}
+
+.info {
+  @extend .message;
+  border-color: blue;
+}

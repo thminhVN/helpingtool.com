@@ -1,0 +1,81 @@
+<div class="collapse in" id="collapse-filter">
+    <div class="row">
+        <div class="col-lg-7">
+            <form class="form-horizontal" id="filter-form" data-controller="<?php echo  $this->routeInfo()->controller ?>">
+                <?php foreach ($items as $name => $option):?>
+                <?php $input_name = "search-$name"?>
+                <?php $display_name = !empty($option['display']) ? $option['display'] : ucfirst($name) ?>
+                    <div class="form-group">
+                        <label for="<?php echo $input_name?>" class="col-lg-3 col-sm-4 control-label"><?php echo $display_name?></label>
+                        <div class="col-sm-8 col-lg-9">
+                        <?php if(isset($option['type']) && in_array($option['type'], array('checkbox', 'radio'))):?>
+                        <?php foreach ($option['values'] as $value => $display):?>
+                            <label class="<?php echo "$option[type]-inline"?>">
+                            <?php
+                                $checked = ''; 
+                                $checked = in_array($value, @$option['checked']) ? 'checked' : '';
+                                echo "<input $checked type='$option[type]' value='$value' name='$input_name"."[]'> $display";
+                            ?>
+                            </label>
+                        <?php endforeach;?>
+                        <?php elseif(isset($option['type']) && in_array($option['type'], array('dropdown'))):?>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-block">Click arrow to open</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                <?php if(in_array($option['type'], array('checkbox', 'radio'))):?>
+                                <?php foreach ($option['values'] as $value => $display):?>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                            <?php
+                                                $checked = ''; 
+                                                if(isset($option['checked']) && is_array($option['checked']))
+                                                    $checked = in_array($value, $option['checked']) ? 'checked' : '';
+                                                echo "<input $checked type='$option[type]' value='$value' name='$input_name"."[]'> $display";
+                                                ?>
+                                            </label>
+                                        </div>
+                                    </li>
+                                <?php endforeach;?>
+                                <?php endif;?>
+                                </ul>
+                            </div>
+                        <?php elseif(isset($option['type']) && in_array($option['type'], array('number', 'datetime', 'date'))):?>
+                            <?php $extra_class = in_array($option['type'], array('date', 'datetime')) ? 'datetimepicker': ''?>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">From</span>
+                                        <input type="text" class="form-control <?php echo "$extra_class-from"?>" name="<?php echo $input_name."[from]"?>" id="<?php echo "$input_name-from"?>">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">To</span>
+                                        <input type="text" class="form-control <?php echo "$extra_class-to"?>" name="<?php echo $input_name."[to]"?>" id="<?php echo "$input_name-to"?>">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php else :?>
+                            <input type="text" name="<?php echo $input_name?>" id="<?php echo $input_name?>" class="form-control" />
+                        <?php endif;?>
+                        </div>
+                    </div>
+                <?php endforeach;?>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10 col-sm-offset-4 col-sm-8">
+                        <button type="reset" class="btn btn-sm btn-danger">RESET</button>
+                        <a class="btn btn-sm btn-info" role="button" data-toggle="collapse" href="#collapse-filter" aria-expanded="false" aria-controls="collapse-filter">
+                            HIDE FILTER
+                        </a>
+                        <button type="submit" class="btn btn-sm btn-success">SUBMIT FILTER</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

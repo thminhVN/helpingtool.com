@@ -1,0 +1,13 @@
+<div class="form-group <?php echo $form_group_class?>">
+    <label for="<?php echo $name?>" class="col-md-3 control-label">
+        <?php echo $element->getLabel();?>
+    </label>
+    <div class="col-md-6">
+    <div class="checkbox">
+        <label>
+        	<?php echo $this->formcheckbox($element); ?>
+        </label>
+    </div>
+	<?php echo $this->formelementerrors($element, array('class' => 'error')) ?>
+    </div>
+</div>

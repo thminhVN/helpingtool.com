@@ -1,0 +1,29 @@
+{
+    "name": "blanchonvincent/zf2-lazy-loading-module",
+    "description": "ZF2 Lazy Loading Module 1.5.2 - Provide a library to implements lazy loading module in ZF2",
+    "version": "1.5.2",
+    "type": "library",
+    "license": "MIT",
+    "tags": [
+        "zend framework",
+        "lazy loading",
+        "module"
+    ],
+    "homepage": "https://github.com/blanchonvincent/zf2-lazy-loading-module",
+    "authors": [
+        {
+            "name": "Vincent Blanchon",
+            "email": "blanchon.vincent@gmail.com",
+            "homepage": "http://developpeur-zend-framework.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*"
+    },
+    "autoload": {
+    	"psr-0": {
+            "ZFMLL": "ZFMLL/"
+    	}
+    }
+}

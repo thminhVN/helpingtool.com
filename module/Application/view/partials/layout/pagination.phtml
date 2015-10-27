@@ -1,0 +1,48 @@
+
+<?php if ($this->pageCount > 1): ?>
+<ul class="pagination">
+<!-- Previous page link -->
+<?php
+if (isset($this->previous)): ?>
+    <?php
+  if($this->previous != 1){
+    $params['route'] = array_merge($params['route'],array('page' => $this->previous));
+  }
+    ?>
+    <li><a href="<?php echo $this->url($this->route, array_merge($params['route'],array('page' => 1)), array('query' => $params['query'])); ?>">&laquo;</a></li>
+    <li><a href="<?php echo $this->url($this->route, $params['route'], array('query' => $params['query'])); ?>">&lt;</a></li>
+<?php else: ?>
+    <li class="disabled"><a href="javascript:void(0)">&laquo;</a></li>
+    <li class="disabled"><a href="javascript:void(0)">&lt;</a></li>
+<?php endif; ?>
+
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php if ($page != $this->current): ?>
+    <li>
+    	<a href="<?php echo $this->url($this->route,
+    	    array_merge($params['route'], array('page' => $page)),
+    	    array('query' => $params['query'])
+    	    ) ?>"><?php echo $page; ?></a>
+    </li>
+  <?php else: ?>
+  	<li class="active"><a href="javascript:void(0)"><?php echo $page?><span class="sr-only">(current)</span></a></li>
+  <?php endif; ?>
+<?php endforeach; ?>
+
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+  <li><a href="<?php echo $this->url($this->route,
+      array_merge($params['route'], array('page' => $this->next)),
+      array('query' => $params['query'])
+      ); ?>">&gt;</a></li>
+  <li><a href="<?php echo $this->url($this->route,
+  array_merge($params['route'], array('page' => $this->pageCount)),
+  array('query' => $params['query'])
+  ); ?>">&raquo;</a></li>
+<?php else: ?>
+    <li class="disabled"><a href="javascript:void(0)">&gt;</a></li>
+    <li class="disabled"><a href="javascript:void(0)">&raquo;</a></li>
+<?php endif; ?>
+</ul>
+<?php endif; ?>

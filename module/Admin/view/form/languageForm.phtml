@@ -1,0 +1,72 @@
+<ul class="nav nav-tabs">
+	<?php
+        if($this->lang_list != null){
+            foreach($this->lang_list as $key => $item){
+                $active = $key == 1 ? ' active' : '';
+                ?>
+                <li class="dropdown<?php echo $active; ?>">
+                    <a id="<?php echo $item->getCode(); ?>-tab" href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><?php echo $item->getName(); ?><b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="<?php echo $item->getCode(); ?>-tab">
+                        <li class=""><a data-toggle="tab" href="#content-<?php echo $item->getCode(); ?>-tab">Content</a></li>
+                	<?php if($form->getAttribute('data-seo')){ ?>
+                     	<li class=""><a data-toggle="tab" href="#seo-<?php echo $item->getCode(); ?>-tab">SEO</a></li>
+                 	<?php } ?>
+                    </ul>
+                </li>
+                <?php
+            }
+        }
+    ?>
+</ul>
+
+<!-- Tab panes -->
+<div id="language-tab" class="tab-content">
+	<?php
+	    if($this->lang_list != null){
+	        foreach($this->lang_list as $key => $item){                
+	            $active = $key == 1 ? ' active' : '';
+	            ?>
+    <div class="tab-pane<?php echo $active; ?>" id="content-<?php echo $item->getCode(); ?>-tab">
+	            <?php
+	            foreach($this->form as $element){
+	                if($element->getAttribute('data-type') == 'multi-language-content' && $element->getAttribute('data-lang') == $item->getCode()){ ?>
+        <div class="form-group">
+	                    <?php
+	                    echo $this->viewHelper->formLabel($element) . $this->viewHelper->formElement($element);
+	                    echo $this->viewHelper->formelementerrors($element, array('class' => 'error'));
+	                    ?>
+        </div>
+	                    <?php
+	                }
+	            }
+	            ?>
+    </div>
+	            <?php
+	        }
+	    }
+    ?>
+
+    <?php
+	    if($this->lang_list != null){
+	        foreach($this->lang_list as $item){
+	        	?>
+    <div class="tab-pane" id="seo-<?php echo $item->getCode(); ?>-tab">
+    			<?php
+	            foreach($this->form as $element){
+	                // if(strpos($element->getName(), '_' . $item->getCode()) !== false){
+	                if($element->getAttribute('data-type') == 'multi-language-seo' && $element->getAttribute('data-lang') == $item->getCode()){
+	                	?>
+        <div class="form-group">
+	        <?php echo $this->viewHelper->formLabel($element) . $this->viewHelper->formElement($element); ?>
+            <?php echo $this->viewHelper->formelementerrors($element, array('class' => 'error'));?>
+        </div>
+        				<?php                    
+	                }
+	            }
+        		?>
+    </div>
+    			<?php
+	        }
+	    }
+	?>
+</div>

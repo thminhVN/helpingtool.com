@@ -1,0 +1,33 @@
+<div>
+	<p>
+        <a class="btn btn-warning btn-sm" 
+            href="<?php echo $this->url('admin/default', array(
+            'controller' => $this->routeInfo()->controller, 
+            'action' => 'index'))?>">
+            <i class="fa fa-reply"></i> Back to list
+        </a>
+	<?php if($this->routeInfo()->action == 'edit'):?>
+        <a class="btn btn-primary btn-sm" 
+        href="<?php echo $this->url('admin/default', array(
+            'controller' => $this->routeInfo()->controller, 
+            'action' => 'add'))?>">
+            <i class="fa fa-plus"></i> Add new one
+        </a>
+	<?php endif; ?>
+    </p>
+	<?php if(@$success && empty($error)):?>
+	<div class="alert alert-success">
+        <strong>Success!</strong> Your infomations were updated.
+    </div>
+    <?php endif;?>
+    <?php if(!empty($error)):?>
+    <div class="alert alert-danger">
+        <strong>Alert!</strong> <?php echo $error?>
+    </div>
+    <?php endif;?>
+    <?php //echo $this->formRenderer($this, $form, null)->render()?>
+    <?php echo $this->partial('form/render_form', array(
+        'form' => $form,
+        'langs' => @$langs 
+    ))?>
+</div>

@@ -1,0 +1,9 @@
+<div class="form-group <?php echo $form_group_class?>">
+	<label for="<?php echo $name?>" class="col-md-3 control-label">
+        <?php echo html_entity_decode($this->formlabel($element))?>
+    </label>
+	<div class="col-md-6"> 
+	     <?php echo $this->formfile($element)?>
+	     <?php echo $this->formelementerrors($element, array('class' => 'error'))?>
+	 </div>
+</div>

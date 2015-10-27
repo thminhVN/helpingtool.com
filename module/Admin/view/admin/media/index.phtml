@@ -1,0 +1,167 @@
+<input type="hidden" id="target_element" value="<?php echo urlencode($target_element); ?>" />
+<input type="hidden" id="element_type" value="<?php echo $type; ?>" />
+<div class="media-section">
+	<h3 class="callout callout-info">Media Manger</h3>	
+	<div class="row">	
+        <div class="col-lg-4 col-md-5">					
+            <div class="">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-success create-tree-folder">
+                        <i class="glyphicon glyphicon-plus"></i> Create
+                    </button>
+                    <button type="button" class="btn btn-sm btn-warning rename-tree-folder">
+                        <i class="glyphicon glyphicon-pencil"></i> Rename
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger remove-tree-folder">
+                        <i class="glyphicon glyphicon-minus"></i> Delete
+                    </button>
+                </div>
+                <div id="media_tree"></div>	 
+    		</div> 
+    	</div>	
+        <div class="col-lg-8 col-md-7">		
+            <ul id="media-manager-tab" class="nav nav-tabs">
+                <li class="active"><a id="detail-tab" href="#manipulation_panel" data-toggle="tab">Browser & Manipulation</a></li>             
+                <li class=""><a href="#upload_panel" data-toggle="tab">Upload</a></li>
+            </ul>        
+            <div id="media-manager-tab-content" class="tab-content">
+                <div class="tab-pane fade active in" id="manipulation_panel">
+                    <div class="alert alert-info">
+                        <div class="btn-group">
+                            <?php if(!empty($target_element) || !empty($ckeditor)):?>
+                            <button type="button" class="btn btn-success" id="<?php echo !empty($ckeditor) ? 'apply-ckeditor-images' : 'apply-images'?>">
+							    <i class="glyphicon glyphicon-save"></i> Apply
+							</button>
+                            <?php endif;?>
+                            <button type="button" class="btn btn-danger" id="remove-images">
+							    <i class="glyphicon glyphicon-trash"></i> Delete
+							</button>
+							<button type="button" class="btn btn-info" id="preview-images">
+							    <i class="glyphicon glyphicon-zoom-in"></i> Preview
+							</button>
+						</div>			
+					</div>					
+                	<div class="grid-image-view">
+						<ol id="selectable"></ol>
+					</div>
+                </div>
+                <div class="tab-pane fade" id="upload_panel">					
+					<div class="alert alert-warning folder-path"><strong>Folder Upload: </strong><span id="folder-path"></span></div>
+					<form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data" class="">
+				        <input type="hidden" name="path" />
+				        <!-- Redirect browsers with JavaScript disabled to the origin page -->
+				        <noscript>&lt;input type="hidden" name="redirect" value="http://blueimp.github.com/jQuery-File-Upload/"&gt;</noscript>
+				        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+				        <div class="fileupload-buttonbar">
+				            <div class="span12">
+				                <!-- The fileinput-button span is used to style the file input field as button -->
+				                <span class="btn btn-success fileinput-button glyphicon glyphicon-plus">
+				                    <span>Add files...</span>
+				                    <input type="file" name="files[]" multiple="">
+				                </span>
+				                <button type="submit" class="btn btn-primary start glyphicon glyphicon-arrow-up">
+				                    <span>Start upload</span>
+				                </button>
+				                <button type="reset" class="btn btn-warning cancel glyphicon glyphicon-ban-circle">
+				                    <span>Cancel upload</span>
+				                </button>
+				                <button type="button" class="btn btn-danger delete glyphicon glyphicon-trash">
+				                    <span>Delete</span>
+				                </button>
+				                <input type="checkbox" class="toggle">
+				                <!-- The loading indicator is shown during file processing -->
+				                <span class="fileupload-loading"></span>
+				            </div>
+				            <!-- The global progress information -->
+				            <div class="span5 fileupload-progress fade">
+				                <!-- The global progress bar -->
+				                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+				                    <div class="bar" style="width:0%;"></div>
+				                </div>
+				                <!-- The extended global progress information -->
+				                <div class="progress-extended">&nbsp;</div>
+				            </div>
+				        </div>
+				        <!-- The table listing the files available for upload/download -->
+				        <div class="row-fluid">
+                        <table role="presentation" class="table table-striped">
+                            <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+                        </table>
+                    </div>
+                </form> 
+			
+			
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td>
+            <span class="preview media-upload"></span>
+        </td>
+        <td>
+            <p class="name">{%=file.name%}</p>
+            {% if (file.error) { %}
+                <div><span class="label label-important">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <p class="size">{%=o.formatFileSize(file.size)%}</p>
+            {% if (!o.files.error) { %}
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+            {% } %}
+        </td>
+        <td>
+            {% if (!o.files.error && !i && !o.options.autoUpload) { %}
+                <button class="btn btn-primary start">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start</span>
+                </button>
+            {% } %}
+            {% if (!i) { %}
+                <button class="btn btn-warning cancel">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>Cancel</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td>
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            <p class="name">
+                <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+            </p>
+            {% if (file.error) { %}
+                <div><span class="label label-important">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+            <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                <i class="icon-trash icon-white"></i>
+                <span>Delete</span>
+            </button>
+            <input type="checkbox" name="delete" value="1" class="toggle">
+        </td>
+    </tr>
+{% } %}
+</script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

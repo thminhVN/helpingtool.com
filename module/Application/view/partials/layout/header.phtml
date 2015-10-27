@@ -1,0 +1,39 @@
+<?php
+// Set title
+$this->headtitle()
+    ->setSeparator(' - ')
+    ->setAutoEscape(false);
+$this->headtitle(_ST_SITE_NAME);
+echo $this->headtitle() . PHP_EOL;
+
+// Set Meta
+$this->headmeta()->setCharset('utf-8');
+$this->headmeta()->appendName('viewport', 'width=device-width, initial-scale=1.0');
+$this->headmeta()->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+$this->headmeta()->appendProperty('og:site_name', _ST_SITE_NAME);
+$this->headmeta()->appendProperty('og:type', 'website');
+$this->headmeta()->appendProperty('og:title', $this->headtitle()->renderTitle());
+
+$languages = $this->Utility()->getActiveLanguages();
+foreach ($languages as $lang) {
+    $propertyName = 'og:locale:alternate';
+    if($lang->getCode() == $this->lang()) $propertyName = 'og:locale';
+    $this->headmeta()->appendProperty($propertyName, $lang->getLocale());
+}
+echo $this->headmeta() . PHP_EOL;
+;
+
+// Set Link
+$this->headLink(array(
+    'rel' => 'shortcut icon',
+    'type' => 'image/vnd.microsoft.icon',
+    'href' => $this->serverUrl('/img/favicon.ico')
+));
+
+$this->headLink(array(
+    'rel' => 'canonical',
+    'href' => $this->serverUrl(true)
+));
+?>
+<script type="text/javascript" src="/js/application/modernizr.js"></script>
+<?php echo $this->headlink();?>

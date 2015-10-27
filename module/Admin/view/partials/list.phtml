@@ -1,0 +1,50 @@
+<input type="hidden" value="<?php echo $this->routeInfo()->controller?>" id="controller">
+<p>
+    <a class="btn btn-sm btn-primary"
+        href="<?php echo $this->url('admin/default',array(
+            'controller' => $this->routeInfo()->controller,
+            'action' => 'add'))?>">
+        <i class="glyphicon glyphicon-plus"></i> ADD NEW
+    </a>
+    <?php if($this->identity()->getRole() == 'admin'):?>
+    <a class="btn btn-sm btn-danger" id="multi-delete" data-controller="<?php echo $this->routeInfo()->controller?>">
+      <i class="glyphicon glyphicon-minus"></i> REMOVE
+    </a>
+    <?php endif;?>
+    <button class="btn btn-warning hidden" id="change-order">
+        <i class="glyphicon glyphicon-random"></i> Rearrange
+    </button>
+    <a class="btn btn-sm btn-info" role="button" data-toggle="collapse" href="#collapse-filter" aria-expanded="false" aria-controls="collapse-filter">
+        <i class="glyphicon glyphicon-filter"></i> FILTER
+    </a>
+</p>
+<div class="mg-top-md">
+<?php 
+if(!empty($filter))
+    echo $this->partial('partials/filter',array('items' => $filter));
+?>
+    <table class="table table-hover table-striped dataTable" id="<?php echo $this->routeInfo()->controller?>" data-controller="<?php echo $this->routeInfo()->controller?>">
+        <thead>
+            <tr>
+                <th data-fnrender="renderFirstColumn" data-mdata="check">
+                    <input type="checkbox" id="select-all" class="selectall">
+                </th>
+                <th data-mdata="id">ID</th>
+                <?php
+                    foreach ($render_value as $key => $value) {
+                        $attribute_str = '';
+                        foreach ($value['attributes'] as $attribute => $attribute_value) {
+                            $attribute_str.= "$attribute=$attribute_value ";
+                        }
+                        echo "<th $attribute_str>$value[value]</th>".PHP_EOL;
+                    }
+                ?>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="<?php echo count($render_value)+2?>" class="dataTables_empty">Loading data from server</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

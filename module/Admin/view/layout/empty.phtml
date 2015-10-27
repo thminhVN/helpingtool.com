@@ -1,0 +1,15 @@
+<?php echo $this->doctype()?>
+<html lang="<?php echo $this->lang; ?>">
+    <head>
+        <?php echo $this->partial('partials/layout-admin/header')?>
+    </head>
+    <body>
+        <div class="container">
+            <?php 
+                echo $this->partial('partials/layout-admin/title');
+                echo $this->content;
+                echo $this->partial('partials/layout-admin/script')
+            ?>
+        </div>
+	</body>
+</html>

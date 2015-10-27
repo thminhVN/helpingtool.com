@@ -1,0 +1,20 @@
+<?php echo $this->doctype()?>
+<html lang="<?php echo $this->lang; ?>">
+<head>
+    <?php echo $this->partial('partials/layout/header')?>
+</head>
+<body class="<?php echo $this->lang . " ". $this->class; ?>">
+
+<?php
+    echo $this->partial('partials/layout/script-in-body');
+?>
+    <div class="container">
+    <?php echo $this->layout()->content ?>
+    </div>
+
+<?php
+    echo $this->partial('partials/layout/footer');
+    echo $this->partial('partials/layout/script');
+?>
+	</body>
+</html>

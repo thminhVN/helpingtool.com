@@ -1,0 +1,10 @@
+<?php
+if(is_array($titles))
+    foreach ($titles as $title)
+        $this->headtitle($title);
+if(!empty($description)) {
+    $this->headmeta()->setName('description', $description);
+    $this->headmeta()->setProperty('og:description', $description);
+}
+if(!empty($image)) 
+    $this->headmeta()->appendProperty('og:image', $image);
